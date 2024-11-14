@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CannonTower : MonoBehaviour {
 	public float m_shootInterval = 0.5f;
@@ -20,11 +19,9 @@ public class CannonTower : MonoBehaviour {
 			if (m_lastShotTime + m_shootInterval > Time.time)
 				continue;
 
-			// shot
 			Instantiate(m_projectilePrefab, m_shootPoint.position, m_shootPoint.rotation);
 
 			m_lastShotTime = Time.time;
 		}
-
 	}
 }
