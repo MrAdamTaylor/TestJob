@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class AssertByObject : IAssert
 {
@@ -19,7 +21,15 @@ public class AssertByObject : IAssert
 
     public GameObject Assert(object assertObject, Vector3 position, Transform parent)
     {
-        throw new System.NotImplementedException();
+        if (assertObject.GetType() != typeof(GameObject))
+        {
+            throw new Exception("Erros in type cast in SimpleFactory class");
+        }
+        
+        GameObject prefab = (GameObject)assertObject;
+        
+        GameObject obj = Object.Instantiate(prefab, position, Quaternion.identity, parent);
+        return obj;
     }
 
     public GameObject Assert(object assertObject, Vector3 position, Quaternion quaternion, Transform parent)

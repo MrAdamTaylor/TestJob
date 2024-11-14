@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BaffAmmo", menuName = "Baff/Ammo")]
+[CreateAssetMenu(fileName = "Cannon", menuName = "GameEntity/Cannon")]
 public class CannonCharacteristics : ScriptableObject
 {
     public GameObject SpawnPrefab;
