@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyScripts.Infrastructure.ServiceLocator
 {
-    public class ServiceLocator : MonoBehaviour
+    public class ServiceLocator 
     {
         [CanBeNull] private static ServiceLocator _instance;
 

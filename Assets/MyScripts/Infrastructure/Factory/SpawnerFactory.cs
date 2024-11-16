@@ -28,7 +28,20 @@ namespace MyScripts.Infrastructure.Factory
             Debug.Log("Cannon Position: "+_objectData.PositionData);
             SpawnerCharacteristics characteristics = (SpawnerCharacteristics)configs;
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
-            obj.AddComponent<SpawnerComponent>();
+
+            if (characteristics.IsEnemy)
+            {
+                SpawnerComponent spawner = obj.AddComponent<SpawnerComponent>();
+
+                IAssert assert = (IAssert)ServiceLocator.ServiceLocator.Instance.GetData(typeof(IAssert));
+                IDataProvider dataProvider = (IDataProvider )ServiceLocator.ServiceLocator.Instance.GetData(typeof(IAssert));
+                NpcCharacteristics npcCharacteristics = Resources.Load<NpcCharacteristics>("StaticData/NPC");
+                ObjectData data = dataProvider.CreateData(npcCharacteristics);
+                IFactory factory = new NpcFactory(assert, data);
+                spawner.Construct(characteristics.Interval, factory);
+                //spawner.Construct();
+            }
+
             return obj;
         }
     }

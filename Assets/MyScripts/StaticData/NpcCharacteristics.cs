@@ -10,6 +10,9 @@ namespace MyScripts.StaticData
         public const int HP = 30;
         public const string STANDART_MOVE_TARG_NAME = "";
     
+        
+        [Space]
+        [Header("Enemy Characteristics ")]
         public string MoveTargetName;
         public float Speed;
         public int MaxHp;

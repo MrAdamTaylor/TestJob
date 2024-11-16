@@ -24,10 +24,18 @@ namespace MyScripts.Infrastructure.Factory
                 throw new Exception("Erros in type cast in SimpleFactory class");
             }
         
-            CannonCharacteristics characteristics = (CannonCharacteristics)configs;
+            CannonCharacteristics cannonCharacteristics = (CannonCharacteristics)configs;
         
             Debug.Log("Cannon Position: "+_objectData.PositionData);
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
+            WedgeTrigger wedgeTrigger = obj.AddComponent<WedgeTrigger>();
+
+            GameObject provoceuter = (GameObject)ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
+            wedgeTrigger.Construct(
+                cannonCharacteristics.TriggerConfigs.Radius, 
+                cannonCharacteristics.TriggerConfigs.High ,
+                cannonCharacteristics.TriggerConfigs.AngThresh,
+                provoceuter.transform);
             return obj;
         }
     }

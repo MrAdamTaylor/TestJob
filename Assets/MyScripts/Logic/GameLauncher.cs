@@ -4,6 +4,7 @@ using MyScripts.EnterpriceLogic;
 using MyScripts.Infrastructure;
 using MyScripts.Infrastructure.AssertService;
 using MyScripts.Infrastructure.Factory;
+using MyScripts.Infrastructure.ServiceLocator;
 using MyScripts.StaticData;
 using UnityEngine;
 
@@ -36,9 +37,12 @@ namespace MyScripts.Logic
                 _assert = new AssertByObject();
                 _dataProvider = new ObjectDataProvider();
             }
+            ServiceLocator.Instance.BindData(typeof(IAssert), _assert);
+            ServiceLocator.Instance.BindData(typeof(IDataProvider), _dataProvider);
 
             GameObject parent = GameObject.Find(SceneConstants.GAME_OBJECTS);
-        
+            ServiceLocator.Instance.BindData(typeof(GameObject), parent);
+            
             for (int i = 0; i < _entityStatic.Count; i++)
             {
                 IFactory factory = _entityServiceCreater.Create(_entityStatic[i], _assert, _dataProvider);
