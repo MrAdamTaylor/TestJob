@@ -1,16 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnerComponent : MonoBehaviour
+namespace MyScripts.Logic
 {
-    void Start()
+    public class SpawnerComponent : MonoBehaviour
     {
+        void Start()
+        {
         
-    }
+        }
 
-    void Update()
-    {
-        Debug.Log("Spawn");
+        void Update()
+        {
+            Debug.Log("Spawn");
+        }
     }
 }

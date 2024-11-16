@@ -1,4 +1,4 @@
-namespace MyScripts
+namespace MyScripts.EnterpriceLogic
 {
     public class SceneConstants
     {

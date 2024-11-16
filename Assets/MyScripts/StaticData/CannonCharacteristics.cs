@@ -1,22 +1,16 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Cannon", menuName = "GameEntity/Cannon")]
-public class CannonCharacteristics : ScriptableObject
+namespace MyScripts.StaticData
 {
-    public GameObject SpawnPrefab;
+    [CreateAssetMenu(fileName = "Cannon", menuName = "GameEntity/Cannon")]
+    public class CannonCharacteristics : GameEntityStaticData
+    {
+        [Space]
+        public float ShootInterval;
 
-    public float ShootInterval;
+        public float Range;
 
-    public float Range;
-
-    public GameObject ProjectTilePrefab;
-
-    [Space]
-    [Header("This method is more optimazed")]
-    public bool IsVector;
+        public GameObject ProjectTilePrefab;
     
-    public string ShootPointTag;
-    
-    public Vector3 ShootPoint;
-    
+    }
 }

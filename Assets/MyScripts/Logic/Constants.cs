@@ -1,4 +1,4 @@
-namespace MyScripts
+namespace MyScripts.Logic
 {
     public class Constants
     {

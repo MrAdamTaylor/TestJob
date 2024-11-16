@@ -1,8 +1,11 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CommonConfigs", menuName = "GameConfigs")]
-public class CommonConfigs : ScriptableObject
+namespace MyScripts.StaticData
 {
-    [Header("Load prefabs by Name")]
-    public bool IsLoadByName;
+    [CreateAssetMenu(fileName = "CommonConfigs", menuName = "GameConfigs")]
+    public class CommonConfigs : ScriptableObject
+    {
+        [Header("Load prefabs by Name")]
+        public bool IsLoadByName;
+    }
 }
