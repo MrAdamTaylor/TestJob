@@ -28,8 +28,15 @@ public class WedgeTrigger : MonoBehaviour
     }
 
     private void OnDrawGizmos()
-     { 
-         Gizmos.color = Handles.color = Contains(_target.position) ? Color.red : Color.white;
+     {
+         if (_target == null)
+         {
+             Gizmos.color = Handles.color = Color.blue;
+         }
+         else
+         {
+             Gizmos.color = Handles.color = Contains(_target.position) ? Color.red : Color.green;
+         }
         Gizmos.matrix = Handles.matrix = transform.localToWorldMatrix;
         Vector3 top = new Vector3(0, this._height, 0);
         
@@ -55,6 +62,9 @@ public class WedgeTrigger : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(_target == null)
+            return;
+        
         _isTriggered = Contains(_target.position);
         if(_isTriggered)
             TriggerAction?.Invoke();
@@ -71,7 +81,10 @@ public class WedgeTrigger : MonoBehaviour
 
 
     private bool Contains(Vector3 position)
-   {
+    {
+        if (_target == null)
+            return false;
+       
        //NOTE - трансформация из глобального в локальное пространство
        Vector3 dirToTargetWorld = (position - transform.position);
        Vector3 vecToTarget = transform.InverseTransformVector(dirToTargetWorld);

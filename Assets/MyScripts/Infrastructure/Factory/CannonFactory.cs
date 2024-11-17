@@ -33,14 +33,23 @@ namespace MyScripts.Infrastructure.Factory
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
             WedgeTrigger wedgeTrigger = obj.AddComponent<WedgeTrigger>();
 
-            GameObject provoceuter = (GameObject)ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
+            //GameObject provoceuter = (GameObject)ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
             wedgeTrigger.Construct(
                 cannonCharacteristics.TriggerConfigs.Radius, 
                 cannonCharacteristics.TriggerConfigs.High ,
-                cannonCharacteristics.TriggerConfigs.AngThresh,
-                provoceuter.transform);
+                cannonCharacteristics.TriggerConfigs.AngThresh
+                );
             CannonController cannonController = obj.AddComponent<CannonController>();
-            cannonController.Construct(wedgeTrigger);
+            //cannonController.Construct(cannonCharacteristics.RotateSpeed);
+
+            Transform cannonTower = obj.transform.Find(Constants.CANNON_TOWER_NAME);
+            
+            CannonRotate cannonRotate = obj.AddComponent<CannonRotate>();
+            cannonRotate.Construct(cannonTower,cannonCharacteristics.RotateSpeed);
+            wedgeTrigger.TriggerAction += cannonRotate.EnableRotate;
+            wedgeTrigger.TriggerEndAction += cannonRotate.DisableRotate;
+            
+            cannonController.Construct(wedgeTrigger, cannonRotate);
             return obj;
         }
 

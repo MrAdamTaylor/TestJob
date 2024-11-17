@@ -8,11 +8,14 @@ namespace MyScripts.Logic
     {
         private Blackboard _blackboard;
         private WedgeTrigger _wedgeTrigger;
-
-        public void Construct(WedgeTrigger wedgeTrigger)
+        private CannonRotate _cannonRotate;
+        
+        public void Construct(WedgeTrigger wedgeTrigger, CannonRotate cannonRotate)
         {
             _wedgeTrigger = wedgeTrigger;
             CreateAIData();
+            _cannonRotate = cannonRotate;
+            _blackboard.ReadyForShoot += _cannonRotate.GetTarget;
         }
 
         public void CreateAIData()

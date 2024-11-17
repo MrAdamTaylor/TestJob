@@ -14,13 +14,15 @@ namespace MyScripts.Logic
         private float _lastSpawn = -1;
         private NpcCharacteristics _npcCharacteristics;
         private GameObject _parent;
+        private bool _isFinish;
 
-        public void Construct(float interval, IFactory factory, NpcCharacteristics npcCharacteristics)
+        public void Construct(float interval, IFactory factory, NpcCharacteristics npcCharacteristics, bool isFinish)
         {
             _interval = interval;
             _factory = factory;
             _npcCharacteristics = npcCharacteristics;
             _parent = (GameObject)ServiceLocator.Instance.GetData(typeof(GameObject));
+            _isFinish = isFinish;
         }
 
         void Update()
@@ -28,7 +30,7 @@ namespace MyScripts.Logic
             if (Time.time > _lastSpawn + _interval)
             {
                 Debug.Log("Spawn");
-                _factory.Create(_npcCharacteristics, _parent.transform);
+                GameObject npc = _factory.Create(_npcCharacteristics, _parent.transform);
                 _lastSpawn = Time.time;
             }
         }

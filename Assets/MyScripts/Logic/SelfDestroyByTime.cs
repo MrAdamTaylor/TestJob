@@ -5,7 +5,7 @@ namespace MyScripts.Infrastructure.Factory
 {
     public class SelfDestroyByTime : MonoBehaviour
     {
-        private const int SECONDS_BY_DESTROYED = 3;
+        private const int SECONDS_BY_DESTROYED = 10;
 
         [SerializeField] private float _seconds;
         void Start()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,8 +6,11 @@ namespace MyScripts.Data.Blackboard
 {
     public class Blackboard
     {
+        
         public WedgeTrigger WedgeTrigger { get; private set; }
 
+        public Action<Transform> ReadyForShoot; 
+        
         private Dictionary<EBlackboardKey, GameObject> _gameObjValue = new Dictionary<EBlackboardKey, GameObject>();
 
         public Blackboard()
@@ -45,13 +49,18 @@ namespace MyScripts.Data.Blackboard
             if (blackboardKey == EBlackboardKey.CannonFocus)
             {
                 WedgeTrigger.SetTarget(value.transform);
+                ReadyForShoot?.Invoke(value.transform);
             }
         }
-    }
-}
 
-public enum EBlackboardKey
-{
-    CannonFocus,
-    Unknown
+        public void RemoveByKey(EBlackboardKey cannonFocus)
+        {
+            if (cannonFocus == EBlackboardKey.CannonFocus)
+            {
+                Debug.Log("Object Destoyed!");
+            }
+
+            _gameObjValue.Remove(cannonFocus);
+        }
+    }
 }
