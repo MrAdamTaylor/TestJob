@@ -5,5 +5,6 @@ namespace MyScripts.Logic
         public const string CANNON_TOWER_NAME = "Cannon_Tower";
         public const string SPAWNER_PREFAB_PATH = "";
         public const string CANNON_PREFAB_PATH = "";
+        public const string CANNON_MOVING_NAME = "Cannon_Moving";
     }
 }

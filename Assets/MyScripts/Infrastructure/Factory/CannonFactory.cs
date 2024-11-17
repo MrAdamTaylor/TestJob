@@ -43,9 +43,12 @@ namespace MyScripts.Infrastructure.Factory
             //cannonController.Construct(cannonCharacteristics.RotateSpeed);
 
             Transform cannonTower = obj.transform.Find(Constants.CANNON_TOWER_NAME);
-            
+            Transform cannonMoving = cannonTower.Find(Constants.CANNON_MOVING_NAME);
+            Transform shootPoint = cannonMoving.Find(cannonCharacteristics.ShootPoinName);
             CannonRotate cannonRotate = obj.AddComponent<CannonRotate>();
-            cannonRotate.Construct(cannonTower,cannonCharacteristics.RotateSpeed);
+
+            //Transform shootPoint = cannonTower.transform.Find(cannonCharacteristics.ShootPoinName);
+            cannonRotate.Construct(cannonTower,cannonCharacteristics.RotateSpeed, cannonMoving, cannonCharacteristics.ProjectTilePrefab, shootPoint);
             wedgeTrigger.TriggerAction += cannonRotate.EnableRotate;
             wedgeTrigger.TriggerEndAction += cannonRotate.DisableRotate;
             

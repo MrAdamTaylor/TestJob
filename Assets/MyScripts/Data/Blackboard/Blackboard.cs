@@ -46,7 +46,7 @@ namespace MyScripts.Data.Blackboard
         public void Set(EBlackboardKey blackboardKey, GameObject value)
         {
             _gameObjValue[blackboardKey] = value;
-            if (blackboardKey == EBlackboardKey.CannonFocus)
+            if (blackboardKey == EBlackboardKey.CannonFocus && WedgeTrigger != null)
             {
                 WedgeTrigger.SetTarget(value.transform);
                 ReadyForShoot?.Invoke(value.transform);

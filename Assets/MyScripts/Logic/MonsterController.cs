@@ -39,7 +39,8 @@ public class MonsterController : MonoBehaviour, IBlackboard
     private void OnDestroy()
     {
         _blackboard.Set(EBlackboardKey.CannonFocus, _parent);
-        _blackboard.WedgeTrigger.TriggerAction -= IsTriggered;
+        if(_blackboard.WedgeTrigger != null)
+            _blackboard.WedgeTrigger.TriggerAction -= IsTriggered;
     }
 
     public void CreateAIData()
@@ -74,9 +75,4 @@ public class MonsterController : MonoBehaviour, IBlackboard
         _trigger.ResetTrigger();
         Destroy(gameObject);
     }
-}
-
-public interface IBlackboard
-{
-    void CreateAIData();
 }

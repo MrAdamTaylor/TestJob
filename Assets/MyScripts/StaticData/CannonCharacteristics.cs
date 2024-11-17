@@ -16,6 +16,7 @@ namespace MyScripts.StaticData
         public TriggerConfigs TriggerConfigs;
 
         public float RotateSpeed;
+        public string ShootPoinName;
     }
     
     [Serializable]
