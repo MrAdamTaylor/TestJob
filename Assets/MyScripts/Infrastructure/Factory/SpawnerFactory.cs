@@ -31,14 +31,14 @@ namespace MyScripts.Infrastructure.Factory
 
             if (characteristics.IsEnemy)
             {
-                SpawnerComponent spawner = obj.AddComponent<SpawnerComponent>();
+                SpawnController spawner = obj.AddComponent<SpawnController>();
 
                 IAssert assert = (IAssert)ServiceLocator.ServiceLocator.Instance.GetData(typeof(IAssert));
-                IDataProvider dataProvider = (IDataProvider )ServiceLocator.ServiceLocator.Instance.GetData(typeof(IAssert));
+                IDataProvider dataProvider = (IDataProvider)ServiceLocator.ServiceLocator.Instance.GetData(typeof(IDataProvider));
                 NpcCharacteristics npcCharacteristics = Resources.Load<NpcCharacteristics>("StaticData/NPC");
                 ObjectData data = dataProvider.CreateData(npcCharacteristics);
                 IFactory factory = new NpcFactory(assert, data);
-                spawner.Construct(characteristics.Interval, factory);
+                spawner.Construct(characteristics.Interval, factory, npcCharacteristics);
                 //spawner.Construct();
             }
 

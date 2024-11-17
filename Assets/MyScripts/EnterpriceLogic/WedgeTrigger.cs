@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,10 +10,15 @@ public class WedgeTrigger : MonoBehaviour
     [SerializeField] private float _radius = 1;
     [SerializeField] private float _height = 1;
 
+    public Action TriggerAction;
+    public Action TriggerEndAction;
+    
     [FormerlySerializedAs("Angle Thresh")]
     [Range(0, 1)] 
     [SerializeField] private float _angThresh = 0.5f;
-    
+
+    private bool _isTriggered;
+
     public void Construct(float radius, float height, float angThresh, Transform provoceuter=null)
     {
         _radius = radius;
@@ -21,13 +27,8 @@ public class WedgeTrigger : MonoBehaviour
         _target = provoceuter;
     }
 
-    public void SetTarget(Transform provoceuter)
-    {
-        _target = provoceuter;
-    }
-
     private void OnDrawGizmos()
-     {
+     { 
          Gizmos.color = Handles.color = Contains(_target.position) ? Color.red : Color.white;
         Gizmos.matrix = Handles.matrix = transform.localToWorldMatrix;
         Vector3 top = new Vector3(0, this._height, 0);
@@ -50,10 +51,26 @@ public class WedgeTrigger : MonoBehaviour
         Gizmos.DrawLine(default, top);
         Gizmos.DrawLine(vLeft, top + vLeft);
         Gizmos.DrawLine(vRight, top + vRight);
-        }
-     
+     }
 
-   public bool Contains(Vector3 position)
+    private void FixedUpdate()
+    {
+        _isTriggered = Contains(_target.position);
+        if(_isTriggered)
+            TriggerAction?.Invoke();
+        else
+        {
+            TriggerEndAction?.Invoke();
+        }
+    }
+
+    public void SetTarget(Transform provoceuter)
+    {
+        _target = provoceuter;
+    }
+
+
+    private bool Contains(Vector3 position)
    {
        //NOTE - трансформация из глобального в локальное пространство
        Vector3 dirToTargetWorld = (position - transform.position);

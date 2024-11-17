@@ -1,6 +1,8 @@
 using System;
 using MyScripts.Data;
+using MyScripts.Data.Blackboard;
 using MyScripts.Infrastructure.AssertService;
+using MyScripts.Logic;
 using MyScripts.StaticData;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace MyScripts.Infrastructure.Factory
     {
         private IAssert _assert;
         private ObjectData _objectData;
+        private Blackboard _blackboard;
     
         public CannonFactory(IAssert assert, ObjectData data)
         {
@@ -36,7 +39,11 @@ namespace MyScripts.Infrastructure.Factory
                 cannonCharacteristics.TriggerConfigs.High ,
                 cannonCharacteristics.TriggerConfigs.AngThresh,
                 provoceuter.transform);
+            CannonController cannonController = obj.AddComponent<CannonController>();
+            cannonController.Construct(wedgeTrigger);
             return obj;
         }
+
+        
     }
 }
