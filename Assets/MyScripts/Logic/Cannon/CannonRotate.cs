@@ -1,9 +1,9 @@
+using MyScripts.Infrastructure.Factory;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MyScripts.Logic
 {
-    public class CannonRotate : MonoBehaviour
+    public class CannonRotate : MonoBehaviour, ISubscribeAction
     {
         private const float DELAY = 1f;
         private const float MAX_DEGREE = 360f;
@@ -24,6 +24,7 @@ namespace MyScripts.Logic
         private Vector3 _default;
         private float _delay;
         private float _angleShift = 0f;
+        private float _koef = 1f;
 
         public void Construct(Transform turretHead, float rotateSpeed)
         {
@@ -58,11 +59,6 @@ namespace MyScripts.Logic
                 Vector3 direction = (_shootTarget.position - _turretMain.position).normalized;
                 Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0.0f, direction.z));
                 _turretMain.rotation = Quaternion.Slerp(_turretMain.rotation, lookRotation, Time.deltaTime * _rotateSpeed);
-                float? angle =RotateTurret();
-                if (angle != null && _delay <= 0.0f) {
-                    CreateBullet();
-                    _delay = DELAY;
-                }
             }
             else
             {
@@ -71,65 +67,14 @@ namespace MyScripts.Logic
             }
         }
 
-        private void CreateBullet()
-        {
-            GameObject shell = Instantiate(_bulletPrefab, _shootPosition.position, _shootPosition.rotation);
-            shell.AddComponent<Rigidbody>().velocity = _bulletSpeed * _turretMain.forward;
-        }
-
-        public void DisableRotate()
-        {
-            _rotateIsRational = false;
-        }
-
-        public void EnableRotate()
+        public void EnableAction()
         {
             _rotateIsRational = true;
         }
-        
-        private float? RotateTurret()
+
+        public void DisableAction()
         {
-            float? angle = CalculateAngle(false);
-
-            if (angle != null)
-            {
-                //_angleShift = (float)angle;
-                _turretCannon.localEulerAngles = new Vector3(0.0f + (float)angle, 0.0f, 0.0f);
-                //_turretHead.localEulerAngles = new Vector3(0 + (float)angle, _turretHead.rotation.y, _turretHead.rotation.z);
-
-            }
-            else
-            {
-                _turretCannon.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-            }
-
-            return angle;
-        }
-
-        private float? CalculateAngle(bool isLowAngle)
-        {
-            Vector3 targetDir = _shootTarget.transform.position - _turretMain.transform.position;
-            float y = targetDir.y;
-            targetDir.y = 0.0f;
-            float x = targetDir.magnitude - 1.0f;
-            float gravity = 9.8f;
-            float sSqr = _bulletSpeed * _bulletSpeed;
-            float underTheSqrRoot = (sSqr * sSqr) - gravity * (gravity * x * x + 2 * y * sSqr);
-            
-            
-            if (underTheSqrRoot >= 0.0f)
-            {
-                //float absUnderTheSqrRoot = Mathf.Abs(underTheSqrRoot);
-                //float root = Mathf.Sqrt(absUnderTheSqrRoot);
-                float root = Mathf.Sqrt(underTheSqrRoot);
-                float highAngle = sSqr + root;
-                float lowAngle = sSqr - root;
-
-                if (isLowAngle) return (Mathf.Atan2(lowAngle, gravity * x) * Mathf.Rad2Deg);
-                else return (Mathf.Atan2(highAngle, gravity * x) * Mathf.Rad2Deg);
-            } 
-            else
-                return null;
+            _rotateIsRational = false;
         }
 
         public void GetTarget(Transform obj)

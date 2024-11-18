@@ -20,8 +20,6 @@ namespace MyScripts.Infrastructure.Factory
 
         public GameObject Create(ScriptableObject configs,  Transform parent)
         {
-            
-            
             if (configs.GetType() != typeof(SpawnerCharacteristics))
             {
                 throw new Exception("Erros in type cast in SimpleFactory class");
@@ -31,7 +29,6 @@ namespace MyScripts.Infrastructure.Factory
             ReactionTrigger reactionTrigger = null;
             bool isMoveGoal = false;
             
-            Debug.Log("Cannon Position: "+_objectData.PositionData);
             SpawnerCharacteristics characteristics = (SpawnerCharacteristics)configs;
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
 

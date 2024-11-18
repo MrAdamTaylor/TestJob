@@ -8,6 +8,12 @@ namespace MyScripts.Infrastructure.Factory
         private const int SECONDS_BY_DESTROYED = 10;
 
         [SerializeField] private float _seconds;
+
+        public void Construct(float secondsByDestoying)
+        {
+            _seconds = secondsByDestoying;
+        }
+
         void Start()
         {
             if (_seconds.Equals(0f))
@@ -17,7 +23,7 @@ namespace MyScripts.Infrastructure.Factory
 
             StartCoroutine(SelfDestruct());
         }
-        
+
         IEnumerator SelfDestruct()
         {
             yield return new WaitForSeconds(_seconds);

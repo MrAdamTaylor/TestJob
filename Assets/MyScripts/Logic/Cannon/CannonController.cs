@@ -1,4 +1,5 @@
 using MyScripts.Data.Blackboard;
+using MyScripts.Infrastructure.Factory;
 using MyScripts.Infrastructure.ServiceLocator;
 using UnityEngine;
 
@@ -9,13 +10,16 @@ namespace MyScripts.Logic
         private Blackboard _blackboard;
         private WedgeTrigger _wedgeTrigger;
         private CannonRotate _cannonRotate;
+        private CannonShootSystem _cannonShootSystem;
         
-        public void Construct(WedgeTrigger wedgeTrigger, CannonRotate cannonRotate)
+        public void Construct(WedgeTrigger wedgeTrigger, CannonRotate cannonRotate, CannonShootSystem shootSystem)
         {
             _wedgeTrigger = wedgeTrigger;
             CreateAIData();
             _cannonRotate = cannonRotate;
+            _cannonShootSystem = shootSystem;
             _blackboard.ReadyForShoot += _cannonRotate.GetTarget;
+            _blackboard.ReadyForShoot += _cannonShootSystem.GetTarget;
         }
 
         public void CreateAIData()

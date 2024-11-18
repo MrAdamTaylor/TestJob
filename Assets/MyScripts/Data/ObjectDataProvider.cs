@@ -5,10 +5,12 @@ namespace MyScripts.Data
 {
     public class ObjectDataProvider : IDataProvider
     {
-        public ObjectData CreateData(ObjectStaticData objectCharacteristics)
+        public ObjectData CreateData(ObjectStaticData objectCharacteristics, bool coordinates = true)
         {
             GameObject gameObject = objectCharacteristics.PrefabObject;
-            Vector3 position = GetPositionByData(objectCharacteristics);
+            Vector3 position;
+            position = coordinates ? GetPositionByData(objectCharacteristics) : objectCharacteristics.Position;
+
             ObjectData data = new ObjectData(gameObject, position);
             return data;
         }

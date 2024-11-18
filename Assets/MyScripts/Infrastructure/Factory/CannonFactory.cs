@@ -33,26 +33,36 @@ namespace MyScripts.Infrastructure.Factory
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
             WedgeTrigger wedgeTrigger = obj.AddComponent<WedgeTrigger>();
 
-            //GameObject provoceuter = (GameObject)ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
             wedgeTrigger.Construct(
                 cannonCharacteristics.TriggerConfigs.Radius, 
                 cannonCharacteristics.TriggerConfigs.High ,
                 cannonCharacteristics.TriggerConfigs.AngThresh
                 );
             CannonController cannonController = obj.AddComponent<CannonController>();
-            //cannonController.Construct(cannonCharacteristics.RotateSpeed);
 
             Transform cannonTower = obj.transform.Find(Constants.CANNON_TOWER_NAME);
             Transform cannonMoving = cannonTower.Find(Constants.CANNON_MOVING_NAME);
             Transform shootPoint = cannonMoving.Find(cannonCharacteristics.ShootPoinName);
             CannonRotate cannonRotate = obj.AddComponent<CannonRotate>();
-
-            //Transform shootPoint = cannonTower.transform.Find(cannonCharacteristics.ShootPoinName);
+            CannonShootSystem cannonShootSystem = obj.AddComponent<CannonShootSystem>();
             cannonRotate.Construct(cannonTower,cannonCharacteristics.RotateSpeed, cannonMoving, cannonCharacteristics.ProjectTilePrefab, shootPoint);
-            wedgeTrigger.TriggerAction += cannonRotate.EnableRotate;
-            wedgeTrigger.TriggerEndAction += cannonRotate.DisableRotate;
+            wedgeTrigger.TriggerAction += cannonRotate.EnableAction;
+            wedgeTrigger.TriggerEndAction += cannonRotate.DisableAction;
+            wedgeTrigger.TriggerAction += cannonShootSystem.EnableAction;
+            wedgeTrigger.TriggerEndAction += cannonShootSystem.DisableAction;
+
+            IAssert assert = (IAssert)ServiceLocator.ServiceLocator.Instance.GetData(typeof(IAssert));
+            IDataProvider dataProvider = (IDataProvider)ServiceLocator.ServiceLocator.Instance.GetData(typeof(IDataProvider));
+            ShellStaticData shellCharacteristics = Resources.Load<ShellStaticData>("StaticData/Shell");
             
-            cannonController.Construct(wedgeTrigger, cannonRotate);
+            shellCharacteristics.Turret = shootPoint;
+            shellCharacteristics.Position = shootPoint.position;
+            ObjectData data = dataProvider.CreateData(shellCharacteristics, false);
+            IFactory factory = new ShellFactory(assert, data);
+            
+            cannonShootSystem.Construct(factory, shellCharacteristics, shootPoint, cannonMoving);
+            
+            cannonController.Construct(wedgeTrigger, cannonRotate, cannonShootSystem);
             return obj;
         }
 
