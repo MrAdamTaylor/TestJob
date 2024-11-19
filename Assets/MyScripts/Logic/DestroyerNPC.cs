@@ -9,7 +9,13 @@ namespace MyScripts.Infrastructure.Factory
 
         public void WinDestroy()
         {
-            Debug.Log($"NPC to moving in end: ");
+            IsDestroying?.Invoke();
+            Destroy(gameObject);
+        }
+        
+        public void DeathDestroy()
+        {
+            Debug.Log($"<color=red>NPC death: </color>");
             IsDestroying?.Invoke();
             Destroy(gameObject);
         }

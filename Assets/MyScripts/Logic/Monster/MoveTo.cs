@@ -8,6 +8,7 @@ namespace MyScripts.Logic
     {
         private const float REACH_DISTANCE = 0.5f;
 
+        public float Speed { get; private set; }
 
         [SerializeField] private Transform _target;
         [SerializeField] private float _speed;
@@ -24,6 +25,7 @@ namespace MyScripts.Logic
             _speed = speed;
             _target = target;
             _readyToMove = true;
+            Speed = speed;
         }
 
         public void Move()
@@ -46,7 +48,12 @@ namespace MyScripts.Logic
                 return;
             StopCoroutine(_moveRoutine);
         }
-        
+
+        public Vector3 GetDirection()
+        {
+            return (_target.transform.position - transform.position).normalized;
+        }
+
         private IEnumerator MakeStep()
         {
             while (_readyToMove)

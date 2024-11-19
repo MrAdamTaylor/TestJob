@@ -10,14 +10,18 @@ namespace MyScripts.Infrastructure.Factory
         private const float YDIRECTION = 0f; 
         private const float ZDIRECTION = 1f;
 
+        public float Speed { get; private set; }
+        
         private float _speed;
 
         private Vector3 _vec;
-        
+
+
         public void Construct(float speed)
         {
             _speed = speed;
             _vec = new Vector3(XDIRECTION, YDIRECTION, ZDIRECTION);
+            Speed = _speed;
         }
 
         public Action DestinationAction { get; set; }
@@ -30,6 +34,11 @@ namespace MyScripts.Infrastructure.Factory
         public void StopMove()
         {
             
+        }
+
+        public Vector3 GetDirection()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using MyScripts.Data;
 using MyScripts.Infrastructure.AssertService;
+using MyScripts.Logic;
 using MyScripts.StaticData;
 using UnityEngine;
 
@@ -27,6 +28,8 @@ namespace MyScripts.Infrastructure.Factory
             ShellStaticData shellCharacteristics = (ShellStaticData)configs;
             GameObject obj = _assert.Assert(_objectData.ModelData, parent.transform.position);
             obj.AddComponent<Rigidbody>().velocity = shellCharacteristics.Speed * shellCharacteristics.Turret.forward;
+            ShellDamage damage = obj.AddComponent<ShellDamage>();
+            damage.Construct(shellCharacteristics.Damage);
 
             if (shellCharacteristics.IsSelfDestory)
             {

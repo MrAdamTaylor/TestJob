@@ -6,7 +6,7 @@ namespace MyScripts.StaticData
     public class ShellStaticData : ObjectStaticData
     {
         public float Speed;
-        public float Damage;
+        public int Damage;
 
         public bool IsSelfDestory;
         public float SecondsByDestoying;

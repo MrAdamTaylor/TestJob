@@ -5,7 +5,7 @@ namespace MyScripts.Infrastructure.Factory
 {
     public class CannonShootSystem : MonoBehaviour, ISubscribeAction
     {
-        private const float DELAY = 1f;
+        private const float DELAY = 0.5f;
         
         [SerializeField] private Transform _turret;
         [SerializeField] private Transform _shootPoint;

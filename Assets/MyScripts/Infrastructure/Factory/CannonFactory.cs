@@ -29,7 +29,6 @@ namespace MyScripts.Infrastructure.Factory
         
             CannonCharacteristics cannonCharacteristics = (CannonCharacteristics)configs;
         
-            Debug.Log("Cannon Position: "+_objectData.PositionData);
             GameObject obj = _assert.Assert(_objectData.ModelData, _objectData.PositionData, parent);
             WedgeTrigger wedgeTrigger = obj.AddComponent<WedgeTrigger>();
 

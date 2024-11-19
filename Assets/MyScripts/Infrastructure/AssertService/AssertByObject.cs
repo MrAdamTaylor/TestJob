@@ -9,7 +9,10 @@ namespace MyScripts.Infrastructure.AssertService
         public GameObject Assert(object assertObject)
         {
             CheckCast(assertObject);
-            throw new System.NotImplementedException();
+            GameObject prefab = (GameObject)assertObject;
+        
+            GameObject obj = Object.Instantiate(prefab);
+            return obj;
         }
 
         public GameObject Assert(object assertObject, Vector3 position)
@@ -43,7 +46,10 @@ namespace MyScripts.Infrastructure.AssertService
         public GameObject Assert(object assertObject, Vector3 position, Quaternion quaternion, Transform parent)
         {
             CheckCast(assertObject);
-            throw new System.NotImplementedException();
+            GameObject prefab = (GameObject)assertObject;
+        
+            GameObject obj = Object.Instantiate(prefab, position, quaternion, parent);
+            return obj;
         }
 
         private void CheckCast(object assertObject)

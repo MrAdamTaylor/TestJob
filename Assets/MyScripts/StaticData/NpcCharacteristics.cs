@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace MyScripts.StaticData
 {
@@ -14,8 +15,7 @@ namespace MyScripts.StaticData
         [Header("Enemy Characteristics ")]
         public string MoveTargetName;
         public float Speed;
-        public int MaxHp;
-        public int Hp;
+        public int Health;
 
         [HideInInspector]
         public bool IsMoveGoalExist;

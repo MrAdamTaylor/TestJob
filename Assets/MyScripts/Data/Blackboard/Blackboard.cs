@@ -55,11 +55,6 @@ namespace MyScripts.Data.Blackboard
 
         public void RemoveByKey(EBlackboardKey cannonFocus)
         {
-            if (cannonFocus == EBlackboardKey.CannonFocus)
-            {
-                Debug.Log("Object Destoyed!");
-            }
-
             _gameObjValue.Remove(cannonFocus);
         }
     }

@@ -29,7 +29,6 @@ namespace MyScripts.Logic
         {
             if (Time.time > _lastSpawn + _interval)
             {
-                Debug.Log("Spawn");
                 GameObject npc = _factory.Create(_npcCharacteristics, _parent.transform);
                 _lastSpawn = Time.time;
             }

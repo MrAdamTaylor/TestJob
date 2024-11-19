@@ -35,23 +35,22 @@ namespace MyScripts.Infrastructure.Factory
             rigidbody.useGravity = false;
             
             MonsterController controller = obj.AddComponent<MonsterController>();
-            
+            MonsterHealth health = obj.AddComponent<MonsterHealth>();
+            health.Construct(npcConfigs.Health);
+            DestroyerNPC destroyerNpc = obj.AddComponent<DestroyerNPC>();
+            health.HealthLessZero += destroyerNpc.DeathDestroy;
 
             if (npcConfigs.IsMoveGoalExist)
             {
                 ReactionTrigger reactionTrigger =
                     (ReactionTrigger)ServiceLocator.ServiceLocator.Instance.GetData(typeof(ReactionTrigger));
-                //reactionTrigger.TriggerAction += 
                 reactionTrigger.Construct(TRIGGER_END_RADIUS, obj.transform);
                 MoveTo moveTo = obj.AddComponent<MoveTo>();
                 moveTo.Construct(npcConfigs.Speed, reactionTrigger.transform);
-
-                DestroyerNPC destroyerNpc = obj.AddComponent<DestroyerNPC>();
+                
                 reactionTrigger.TriggerAction += destroyerNpc.WinDestroy;
                 
                 controller.Construct(moveTo, reactionTrigger, destroyerNpc);
-                
-                Debug.Log("NPC have a Goal");
             }
             else
             {
@@ -62,8 +61,6 @@ namespace MyScripts.Infrastructure.Factory
 
             }
             
-            //controller.Construct();
-
             return obj;
         }
         

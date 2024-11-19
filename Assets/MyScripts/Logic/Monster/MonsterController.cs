@@ -1,3 +1,4 @@
+using System;
 using MyScripts.Data.Blackboard;
 using MyScripts.Infrastructure.Factory;
 using MyScripts.Infrastructure.ServiceLocator;
@@ -6,6 +7,8 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour, IBlackboard
 {
+    public Vector3 PredictedShift { get; private set; }
+
     private Blackboard _blackboard;
     private GameObject _parent;
     private IMoveComponent _moveComponent;
@@ -41,6 +44,11 @@ public class MonsterController : MonoBehaviour, IBlackboard
         _blackboard.Set(EBlackboardKey.CannonFocus, _parent);
         if(_blackboard.WedgeTrigger != null)
             _blackboard.WedgeTrigger.TriggerAction -= IsTriggered;
+    }
+
+    private void Update()
+    {
+        PredictedShift = (_moveComponent.GetDirection() * _moveComponent.Speed);
     }
 
     public void CreateAIData()
