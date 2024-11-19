@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MyScripts.Infrastructure.Factory
+namespace MyScripts.Logic
 {
     public class DestroyerNPC : MonoBehaviour
     {

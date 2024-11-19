@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace MyScripts.Logic
+namespace MyScripts.Logic.Monster
 {
     public class MoveTo : MonoBehaviour, IMoveComponent
     {

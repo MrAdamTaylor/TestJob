@@ -1,3 +1,4 @@
+using MyScripts.Logic.Monster;
 using UnityEngine;
 
 namespace MyScripts.Logic

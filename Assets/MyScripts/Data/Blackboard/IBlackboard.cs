@@ -1,4 +1,7 @@
-public interface IBlackboard
+namespace MyScripts.Data.Blackboard
 {
-    void CreateAIData();
+    public interface IBlackboard
+    {
+        void CreateAIData();
+    }
 }

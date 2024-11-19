@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MyScripts.Logic
+namespace MyScripts.Logic.Monster
 {
     public interface IMoveComponent
     {

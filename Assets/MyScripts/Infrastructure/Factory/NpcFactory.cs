@@ -1,7 +1,9 @@
 using System;
 using MyScripts.Data;
+using MyScripts.EnterpriceLogic;
 using MyScripts.Infrastructure.AssertService;
 using MyScripts.Logic;
+using MyScripts.Logic.Monster;
 using MyScripts.StaticData;
 using UnityEngine;
 
@@ -50,15 +52,14 @@ namespace MyScripts.Infrastructure.Factory
                 
                 reactionTrigger.TriggerAction += destroyerNpc.WinDestroy;
                 
-                controller.Construct(moveTo, reactionTrigger, destroyerNpc);
+                controller.Construct(moveTo, reactionTrigger, destroyerNpc, health);
             }
             else
             {
                 MoveDirection moveTo = obj.AddComponent<MoveDirection>();
                 moveTo.Construct(npcConfigs.Speed);
-                controller.Construct(moveTo);
                 obj.AddComponent<SelfDestroyByTime>();
-
+                controller.Construct(moveTo, health, destroyerNpc);
             }
             
             return obj;

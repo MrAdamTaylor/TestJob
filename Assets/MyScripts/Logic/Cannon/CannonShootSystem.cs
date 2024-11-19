@@ -1,7 +1,8 @@
+using MyScripts.Infrastructure.Factory;
 using MyScripts.StaticData;
 using UnityEngine;
 
-namespace MyScripts.Infrastructure.Factory
+namespace MyScripts.Logic.Cannon
 {
     public class CannonShootSystem : MonoBehaviour, ISubscribeAction
     {
@@ -27,7 +28,7 @@ namespace MyScripts.Infrastructure.Factory
             _shootPoint = shootPoint;
             _bulletFactory = factory;
             _bulletStaticData = data;
-            _parent = (GameObject)ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
+            _parent = (GameObject)Infrastructure.ServiceLocator.ServiceLocator.Instance.GetData(typeof(GameObject));
             _delay = DELAY;
             _bulletSpeed = data.Speed;
         }

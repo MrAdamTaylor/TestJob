@@ -8,7 +8,7 @@ namespace MyScripts.StaticData
         public GameObject PrefabObject;
 
         [Space]
-        [Header("This method is more optimazed")]
+        [Header("This method is more optimazed, but less convenient as it requires manually specifying all coordinates")]
         public bool IsUseVector;
         public string ScenePointName;
         public Vector3 Position;

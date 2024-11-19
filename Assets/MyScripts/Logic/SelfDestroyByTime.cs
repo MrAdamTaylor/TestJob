@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace MyScripts.Infrastructure.Factory
+namespace MyScripts.Logic
 {
     public class SelfDestroyByTime : MonoBehaviour
     {

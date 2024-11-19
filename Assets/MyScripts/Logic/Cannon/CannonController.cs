@@ -1,9 +1,9 @@
 using MyScripts.Data.Blackboard;
-using MyScripts.Infrastructure.Factory;
+using MyScripts.EnterpriceLogic;
 using MyScripts.Infrastructure.ServiceLocator;
 using UnityEngine;
 
-namespace MyScripts.Logic
+namespace MyScripts.Logic.Cannon
 {
     public class CannonController : MonoBehaviour, IBlackboard
     {
@@ -34,6 +34,18 @@ namespace MyScripts.Logic
                 ServiceLocator.Instance.BindData(typeof(Blackboard), _blackboard);
             }
             
+        }
+
+        public void OnDestroy()
+        {
+            _wedgeTrigger.TriggerAction -= _cannonRotate.EnableAction;
+            _wedgeTrigger.TriggerEndAction -= _cannonRotate.DisableAction;
+
+            _wedgeTrigger.TriggerAction -= _cannonShootSystem.EnableAction;
+            _wedgeTrigger.TriggerEndAction -= _cannonShootSystem.DisableAction;
+
+            _blackboard.ReadyForShoot -= _cannonRotate.GetTarget;
+            _blackboard.ReadyForShoot -= _cannonShootSystem.GetTarget;
         }
     }
 }

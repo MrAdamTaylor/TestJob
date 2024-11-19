@@ -1,7 +1,8 @@
 using MyScripts.Infrastructure.Factory;
+using MyScripts.Logic.Monster;
 using UnityEngine;
 
-namespace MyScripts.Logic
+namespace MyScripts.Logic.Cannon
 {
     public class CannonRotate : MonoBehaviour, ISubscribeAction
     {

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MyScripts.EnterpriceLogic;
 using UnityEngine;
 
 namespace MyScripts.Data.Blackboard
@@ -55,7 +56,11 @@ namespace MyScripts.Data.Blackboard
 
         public void RemoveByKey(EBlackboardKey cannonFocus)
         {
-            _gameObjValue.Remove(cannonFocus);
+            if (_gameObjValue.ContainsKey(cannonFocus))
+            {
+                _gameObjValue.Remove(cannonFocus);
+            }
+
         }
     }
 }

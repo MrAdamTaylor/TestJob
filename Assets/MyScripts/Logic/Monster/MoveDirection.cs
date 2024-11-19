@@ -1,8 +1,7 @@
 using System;
-using MyScripts.Logic;
 using UnityEngine;
 
-namespace MyScripts.Infrastructure.Factory
+namespace MyScripts.Logic.Monster
 {
     public class MoveDirection : MonoBehaviour, IMoveComponent
     {

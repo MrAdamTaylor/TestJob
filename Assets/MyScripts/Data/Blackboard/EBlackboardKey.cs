@@ -1,5 +1,8 @@
-public enum EBlackboardKey
+namespace MyScripts.Data.Blackboard
 {
-    None = 0,
-    CannonFocus
+    public enum EBlackboardKey
+    {
+        None = 0,
+        CannonFocus
+    }
 }
